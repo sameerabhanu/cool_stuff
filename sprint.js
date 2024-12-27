@@ -71,6 +71,15 @@ const errorMessage = (currentIndex, sprintCode) => {
   return "           ERROR :  " + errorIndex + errorInstruction + errorMsg;
 };
 
+const getSprintInstructions = () =>
+  prompt("Enter Sprint Code: ")
+    .split(" ")
+    .map((num) => +num);
+    
+const isInputInvalid = (sprintCode) => {
+  return sprintCode.some(isNaN);
+};
+
 const executesprintCode = function (sprintCode) {
   let currentIndex = 1;
   let instructionCount = 0;
@@ -102,15 +111,6 @@ const executesprintCode = function (sprintCode) {
   sprintCode[0] = "After execution  : ";
   return sprintCode.join(" ");
 };
-
-const isInputInvalid = (sprintCode) => {
-  return sprintCode.some(isNaN);
-};
-
-const getSprintInstructions = () =>
-  prompt("Enter Sprint Code: ")
-    .split(" ")
-    .map((num) => +num);
 
 const run = () => {
   const sprintCode = getSprintInstructions();
