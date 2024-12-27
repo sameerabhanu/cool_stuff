@@ -80,7 +80,7 @@ const isInputInvalid = (sprintCode) => {
   return sprintCode.some(isNaN);
 };
 
-const executesprintCode = function (sprintCode) {
+const executeSprintInstructions = function (sprintCode) {
   let currentIndex = 1;
   let instructionCount = 0;
   const sprintFunctions = {
@@ -122,7 +122,7 @@ const run = () => {
   sprintCode.unshift("Before execution : ");
   console.log(sprintCode.join(" "));
 
-  return executesprintCode(sprintCode);
+  return executeSprintInstructions(sprintCode);
 };
 
 console.log(run());
