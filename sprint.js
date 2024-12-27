@@ -93,10 +93,23 @@ const executesprintCode = function (sprintCode) {
   return sprintCode.join(" ");
 };
 
-const run = () => {
-  const sprintCode = prompt("Enter Sprint Code: ")
+const isInputValid = (sprintCode) => {
+  const naNElements = sprintCode.filter((element) => isNaN(element));
+
+  return naNElements.length === 0;
+};
+
+const getSprintInstructions = () =>
+  prompt("Enter Sprint Code: ")
     .split(" ")
     .map((num) => +num);
+
+const run = () => {
+  const sprintCode = getSprintInstructions();
+
+  if (!isInputValid(sprintCode)) {
+    return "Enter Valid Sprint Code";
+  }
 
   sprintCode.unshift("Before execution : ");
   console.log(sprintCode.join(" "));
