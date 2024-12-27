@@ -75,7 +75,7 @@ const getSprintInstructions = () =>
   prompt("Enter Sprint Code: ")
     .split(" ")
     .map((num) => +num);
-    
+
 const isInputInvalid = (sprintCode) => {
   return sprintCode.some(isNaN);
 };
