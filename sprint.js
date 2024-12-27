@@ -4,7 +4,6 @@ const isEqual = (operand1, operand2) => operand1 === operand2;
 const isLessThan = (operand1, operand2) => operand1 < operand2;
 const haltExecution = (sprintCode, index) => sprintCode.at(index) === 9;
 const exceededMaxInstructions = (insCount, threshold) => insCount > threshold;
-const infiniteErrorMessage = () => "           ERROR :  Infinite Loop   ";
 
 const fetchArgs = (index, sprintCode) => {
   const [index1, index2, indexToPut] = sprintCode.slice(index + 1, index + 4);
@@ -28,10 +27,10 @@ const executeAddOrSub = (currentIndex, operation, sprintCode) => {
   return currentIndex + 4;
 };
 
-const executeJumpIfEqualOrLessThan = (currentIndex, operation, sprintCode) => {
+const executeJumpIfEqualOrLessThan = (currentIndex, predicate, sprintCode) => {
   const [operand1, operand2, indexToJump] = fetchArgs(currentIndex, sprintCode);
 
-  return operation(operand1, operand2) ? indexToJump : currentIndex + 4;
+  return predicate(operand1, operand2) ? indexToJump : currentIndex + 4;
 };
 
 const executeJump = (currentIndex, sprintCode) =>
@@ -61,6 +60,8 @@ const executeJumpIfEqual = (currentIndex, sprintCode) =>
 
 const executeJumpIfLessThan = (currentIndex, sprintCode) =>
   executeJumpIfEqualOrLessThan(currentIndex, isLessThan, sprintCode);
+
+const infiniteErrorMessage = () => "           ERROR :  Infinite Loop   ";
 
 const errorMessage = (currentIndex, sprintCode) => {
   const errorIndex = "Index : " + currentIndex + " , Instruction : ";
@@ -102,10 +103,8 @@ const executesprintCode = function (sprintCode) {
   return sprintCode.join(" ");
 };
 
-const isInputValid = (sprintCode) => {
-  const naNElements = sprintCode.filter((element) => isNaN(element));
-
-  return naNElements.length === 0;
+const isInputInvalid = (sprintCode) => {
+  return sprintCode.some(isNaN);
 };
 
 const getSprintInstructions = () =>
@@ -116,7 +115,7 @@ const getSprintInstructions = () =>
 const run = () => {
   const sprintCode = getSprintInstructions();
 
-  if (!isInputValid(sprintCode)) {
+  if (isInputInvalid(sprintCode)) {
     return "Enter Valid Sprint Code";
   }
 
