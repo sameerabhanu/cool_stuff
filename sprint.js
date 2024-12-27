@@ -2,6 +2,7 @@ const add = (operand1, operand2) => operand1 + operand2;
 const sub = (operand1, operand2) => operand1 - operand2;
 const isEqual = (operand1, operand2) => operand1 === operand2;
 const isLessThan = (operand1, operand2) => operand1 < operand2;
+const haltExecution = (sprintCode, index) => sprintCode.at(index) === 9;
 
 const fetchArgs = (index, sprintCode) => {
   const [index1, index2, indexToPut] = sprintCode.slice(index + 1, index + 4);
@@ -62,9 +63,9 @@ const executeJumpIfLessThan = (currentIndex, sprintCode) =>
 const errorMessage = (currentIndex, sprintCode) => {
   const errorIndex = "Index : " + currentIndex + " , Instruction : ";
   const errorInstruction = sprintCode.at(currentIndex);
-  const message = " -> NO SUCH INSTRUCTION";
+  const errorMsg = " -> NO SUCH INSTRUCTION";
 
-  return errorIndex + errorInstruction + message;
+  return errorIndex + errorInstruction + errorMsg;
 };
 
 const executesprintCode = function (sprintCode) {
@@ -79,7 +80,7 @@ const executesprintCode = function (sprintCode) {
     5: executeJumpIfLessThan,
   };
 
-  while (sprintCode.at(currentIndex) !== 9) {
+  while (!haltExecution(sprintCode, currentIndex)) {
     const command = sprintCode.at(currentIndex);
 
     if (!(command in sprintFunctions)) {
@@ -100,9 +101,7 @@ const isInputValid = (sprintCode) => {
 };
 
 const getSprintInstructions = () =>
-  prompt("Enter Sprint Code: ")
-    .split(" ")
-    .map((num) => +num);
+  prompt("Enter Sprint Code: ").split(" ").map((num) => +num);
 
 const run = () => {
   const sprintCode = getSprintInstructions();
@@ -119,4 +118,5 @@ const run = () => {
 
 console.log(run());
 
+//3 10 0 0 0 0 0 0 0 0 1 1 4 11 10 27 1 11 1 12 1 11 1 11 3 10 2 10 17 31 0
 //3 10 0 0 0 0 0 0 0 0 one 1 4 11 10 27 1 11 1 12 1 11 1 11 3 10 2 10 17 31 0
