@@ -4,10 +4,7 @@ const isEqual = (operand1, operand2) => operand1 === operand2;
 const isLessThan = (operand1, operand2) => operand1 < operand2;
 
 const fetchArgs = (index, sprintCode) => {
-  const [index1, index2, indexToPut] = sprintCode.slice(
-    index + 1,
-    index + 4
-  );
+  const [index1, index2, indexToPut] = sprintCode.slice(index + 1, index + 4);
   const operand1 = sprintCode.at(index1);
   const operand2 = sprintCode.at(index2);
 
@@ -22,24 +19,14 @@ const executePutOrCopy = (currentIndex, value, sprintCode) => {
 };
 
 const executeAddOrSub = (currentIndex, operation, sprintCode) => {
-  const [operand1, operand2, indexToPut] = fetchArgs(
-    currentIndex,
-    sprintCode
-  );
+  const [operand1, operand2, indexToPut] = fetchArgs(currentIndex, sprintCode);
   sprintCode[indexToPut] = operation(operand1, operand2);
 
   return currentIndex + 4;
 };
 
-const executeJumpIfEqualOrLessThan = (
-  currentIndex,
-  operation,
-  sprintCode
-) => {
-  const [operand1, operand2, indexToJump] = fetchArgs(
-    currentIndex,
-    sprintCode
-  );
+const executeJumpIfEqualOrLessThan = (currentIndex, operation, sprintCode) => {
+  const [operand1, operand2, indexToJump] = fetchArgs(currentIndex, sprintCode);
 
   return operation(operand1, operand2) ? indexToJump : currentIndex + 4;
 };
