@@ -3,6 +3,8 @@ const sub = (operand1, operand2) => operand1 - operand2;
 const isEqual = (operand1, operand2) => operand1 === operand2;
 const isLessThan = (operand1, operand2) => operand1 < operand2;
 const haltExecution = (sprintCode, index) => sprintCode.at(index) === 9;
+const exceededMaxInstructions = (insCount, threshold) => insCount > threshold;
+const infiniteErrorMessage = () => "           ERROR :  Infinite Loop   ";
 
 const fetchArgs = (index, sprintCode) => {
   const [index1, index2, indexToPut] = sprintCode.slice(index + 1, index + 4);
@@ -65,11 +67,12 @@ const errorMessage = (currentIndex, sprintCode) => {
   const errorInstruction = sprintCode.at(currentIndex);
   const errorMsg = " -> NO SUCH INSTRUCTION";
 
-  return errorIndex + errorInstruction + errorMsg;
+  return "           ERROR :  " + errorIndex + errorInstruction + errorMsg;
 };
 
 const executesprintCode = function (sprintCode) {
   let currentIndex = 1;
+  let instructionCount = 0;
   const sprintFunctions = {
     3: executeJump,
     0: executePut,
@@ -81,12 +84,18 @@ const executesprintCode = function (sprintCode) {
   };
 
   while (!haltExecution(sprintCode, currentIndex)) {
+    if (exceededMaxInstructions(instructionCount, 1000)) {
+      return infiniteErrorMessage();
+    }
+
     const command = sprintCode.at(currentIndex);
+
     if (!(command in sprintFunctions)) {
       return errorMessage(currentIndex, sprintCode);
     }
 
     currentIndex = sprintFunctions[command](currentIndex, sprintCode);
+    instructionCount++;
   }
 
   sprintCode[0] = "After execution  : ";
@@ -122,3 +131,4 @@ console.log(run());
 //3 10 0 0 0 0 0 0 0 0 1 1 4 11 10 27 1 11 1 12 1 11 1 11 3 10 2 10 17 31 0
 //3 10 0 0 0 0 0 0 0 0 one 1 4 11 10 27 1 11 1 12 1 11 1 11 3 10 2 10 17 31 0
 //3 10 0 0 0 0 0 0 0 8 1 1 4 11 10 27 1 11 1 12 1 11 1 11 3 10 2 10 17 31 0
+//3 10 0 0 0 0 0 0 0 0 8 1 4 11 10 27 1 11 1 12 1 11 1 11 3 10 2 10 17 31 0
