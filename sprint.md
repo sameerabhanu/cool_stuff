@@ -6,3 +6,10 @@
 6. 2 -> [2, minuendIndex, subtrahendIndex, indexToPut] -> subtract subtrahend in givem index from minuend in given index and put the difference in result index.
 7. 4 -> [4, number1Index, number2Index, indexToMove] -> if number1 and number2 in given indexes are equal move to index given, else next instruction.
 8. 5 -> [5, number1Index, number2Index, indexToMove] -> if number1 is less than  number2 in given indexes move to index given, else next instruction.
+
+TestCases:
+
+//3 10 0 0 0 0 0 0 0 0 1 1 4 11 10 27 1 11 1 12 1 11 1 11 3 10 2 10 17 31 0
+//3 10 0 0 0 0 0 0 0 0 one 1 4 11 10 27 1 11 1 12 1 11 1 11 3 10 2 10 17 31 0
+//3 10 0 0 0 0 0 0 0 8 1 1 4 11 10 27 1 11 1 12 1 11 1 11 3 10 2 10 17 31 0
+//3 10 0 0 0 0 0 0 0 0 8 1 4 11 10 27 1 11 1 12 1 11 1 11 3 10 2 10 17 31 0
