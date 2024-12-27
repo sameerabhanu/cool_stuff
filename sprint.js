@@ -82,7 +82,6 @@ const executesprintCode = function (sprintCode) {
 
   while (!haltExecution(sprintCode, currentIndex)) {
     const command = sprintCode.at(currentIndex);
-
     if (!(command in sprintFunctions)) {
       return errorMessage(currentIndex, sprintCode);
     }
@@ -101,7 +100,9 @@ const isInputValid = (sprintCode) => {
 };
 
 const getSprintInstructions = () =>
-  prompt("Enter Sprint Code: ").split(" ").map((num) => +num);
+  prompt("Enter Sprint Code: ")
+    .split(" ")
+    .map((num) => +num);
 
 const run = () => {
   const sprintCode = getSprintInstructions();
@@ -120,3 +121,4 @@ console.log(run());
 
 //3 10 0 0 0 0 0 0 0 0 1 1 4 11 10 27 1 11 1 12 1 11 1 11 3 10 2 10 17 31 0
 //3 10 0 0 0 0 0 0 0 0 one 1 4 11 10 27 1 11 1 12 1 11 1 11 3 10 2 10 17 31 0
+//3 10 0 0 0 0 0 0 0 8 1 1 4 11 10 27 1 11 1 12 1 11 1 11 3 10 2 10 17 31 0
